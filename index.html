@@ -8,6 +8,7 @@
 <body>
     <input type="text" id="text">
     <button onclick="submit()">翻譯</button>
+    <button onclick="svubmit()">反向翻譯</button>
     <script>
         var text = document.getElementById("text");
         var got = ["k","K","s","S","d","D","t","T","r","R","m","M","l","L","p","P","n","N","a ","A ","e ","E ","i ","I ","ee ","EE ","o ","g","t","s"]
@@ -26,8 +27,25 @@
             return answerText;
         }
 
+        function translate_back(inputText) {
+            var answerText = "";
+            var inpit = inputText.split("");
+            for(var i = 0; i < inpit.length; i++) {
+                if(got.includes(inpit[i])) {
+                    answerText += win[got.indexOf(inpit[i])];
+                } else {
+                    answerText += inpit[i];
+                }
+            }
+            return answerText;
+        }
+
         function submit() {
             alert(translate(text.value));
+        }
+
+        function svubmit() {
+            alert(translate_back(text.value));
         }
     </script>
 </body>
