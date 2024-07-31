@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="text">
+    <button onclick="submit()">翻譯</button>
+    <script>
+        var text = document.getElementById("text");
+        var got = ["k","K","s","S","d","D","t","T","r","R","m","M","l","L","p","P","n","N","a ","A ","e ","E ","i ","I ","ee ","EE ","o ","g","t","se"]
+        var win = ["k","K","σ","उ","δ","D","t","τ","r","Γ","ω","W","ς","C","ρ","P","ωσ-","Wσ-","α","A","ε","E","η","Π","=","Ξ","αε","κ","π","v"]
+        
+        function translate(inputText) {
+            var answerText = "";
+            var inpit = inputText.split("");
+            for(var i = 0; i < inpit.length; i++) {
+                if(win.includes(inpit[i])) {
+                    answerText += got[win.indexOf(inpit[i])];
+                } else {
+                    answerText += inpit[i];
+                }
+            }
+            return answerText;
+        }
+
+        function submit() {
+            alert(translate(text.value));
+        }
+    </script>
+</body>
+</html>
