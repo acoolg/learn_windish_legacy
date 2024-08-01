@@ -12,6 +12,7 @@ function a(anser) {
         thsd = win[getrandom(0, win.length)]
         qq.innerHTML = thsd
         render(qot[win.indexOf(thsd)])
+        alert("yep!")
     }
     else {
         alert("Wrong!" + qot[win.indexOf(thsd)])
@@ -31,38 +32,38 @@ function render(anser) {
         case 0:
             aq.innerHTML = `
                 <div class="center" id="dong">
-                    <button onclick="a(${anser})">${anser}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${anser}')">${anser}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
                 </div>`
             break
 
         case 1:
             aq.innerHTML = `
                 <div class="center" id="dong">
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${anser})">${anser}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${anser}')">${anser}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
                 </div>`
             break
         case 2:
             aq.innerHTML = `
                 <div class="center" id="dong">
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${anser})">${anser}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${anser}')">${anser}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
                 </div>`
             break
         case 3:
             aq.innerHTML = `
                 <div class="center" id="dong">
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
-                    <button onclick="a(${anser})">${anser}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${qot[getrandom(0, win.length)]}')">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a('${anser}')">${anser}</button>
                 </div>`
             break
     }
