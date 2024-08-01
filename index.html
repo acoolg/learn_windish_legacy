@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <input type="text" id="text">
     <button onclick="submit()">翻譯</button>
     <button onclick="svubmit()">反向翻譯</button>
     <script>
         var text = document.getElementById("text");
-        var got = ["k","K","s","S","d","D","t","T","r","R","m","M","l","L","p","P","n","N","a ","A ","e ","E ","i ","I ","ee ","EE ","o ","g","t","s"]
-        var win = ["k","K","σ","उ","δ","D","t","τ","r","Γ","ω","W","ς","C","ρ","P","μ","U","α","A","ε","E","η","Π","=","Ξ","ψ","κ","π","ν"]
-        var qot = ["k","K","s","S","d","D","t","T","r","R","m","M","l","L","p","P","n","N","a","A","e","E","i","I","ee","EE","o","g","t","s"]
-        
+        var got = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a ", "A ", "e ", "E ", "i ", "I ", "ee ", "EE ", "o ", "g", "t", "s"]
+        var win = ["k", "K", "σ", "उ", "δ", "D", "t", "τ", "r", "Γ", "ω", "W", "ς", "C", "ρ", "P", "μ", "U", "α", "A", "ε", "E", "η", "Π", "=", "Ξ", "ψ", "κ", "π", "ν"]
+        var qot = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a", "A", "e", "E", "i", "I", "ee", "EE", "o", "g", "t", "s"]
+
         function translate(inputText) {
             var answerText = "";
             var inpit = inputText.split("");
-            for(var i = 0; i < inpit.length; i++) {
-                if(win.includes(inpit[i])) {
+            for (var i = 0; i < inpit.length; i++) {
+                if (win.includes(inpit[i])) {
                     answerText += got[win.indexOf(inpit[i])];
                 } else {
                     answerText += inpit[i];
@@ -31,8 +33,8 @@
         function translate_back(inputText) {
             var answerText = "";
             var inpit = inputText.split("");
-            for(var i = 0; i < inpit.length; i++) {
-                if(qot.includes(inpit[i])) {
+            for (var i = 0; i < inpit.length; i++) {
+                if (qot.includes(inpit[i])) {
                     answerText += win[qot.indexOf(inpit[i])];
                 } else {
                     answerText += inpit[i];
@@ -41,8 +43,21 @@
             return answerText;
         }
 
+        function removeSecondLastChar(str) {
+            if (str.length < 2) {
+                return str; // 如果字符串长度小于2，直接返回字符串
+            }
+            // 使用字符串的slice方法分割并拼接去掉倒数第二个字符的字符串
+            return str.slice(0, -2) + str.slice(-1);
+        }
+
         function submit() {
-            alert(translate(text.value));
+            var translatedText = translate(text.value);
+            if (translatedText.length > 1 && translatedText[translatedText.length - 2] === " ") {
+                alert(removeSecondLastChar(translatedText));
+            } else {
+                alert(translatedText);
+            }
         }
 
         function svubmit() {
@@ -50,4 +65,5 @@
         }
     </script>
 </body>
+
 </html>
