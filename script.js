@@ -3,14 +3,15 @@ var qot = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L",
 var qq = document.getElementById("ti")
 var aq = document.getElementById("dong")
 
-var thsd = win[getrandom(0,win.length)]
+var thsd = win[getrandom(0, win.length)]
 qq.innerHTML = thsd
-render("ddd")
+render(qot[win.indexOf(thsd)])
 
 function a(anser) {
     if (anser == qot[win.indexOf(thsd)]) {
-        thsd = win[getrandom(0,win.length)]
+        thsd = win[getrandom(0, win.length)]
         qq.innerHTML = thsd
+        render(qot[win.indexOf(thsd)])
     }
     else {
         alert("Wrong!" + qot[win.indexOf(thsd)])
@@ -24,11 +25,45 @@ function getrandom(min, max) {
 }
 
 function render(anser) {
-    aq.innerHTML = `
-    <div class="center" id="dong">
-        <button onclick="a(${qot[getrandom(0,win.length)]})">${qot[getrandom(0,win.length)]}</button>
-        <button onclick="a(${qot[getrandom(0,win.length)]})">${qot[getrandom(0,win.length)]}</button>
-        <button onclick="a(${qot[getrandom(0,win.length)]})">${qot[getrandom(0,win.length)]}</button>
-        <button onclick="a(${qot[getrandom(0,win.length)]})">${qot[getrandom(0,win.length)]}</button>
-    </div>`
+    var aa = getrandom(0,4 )
+
+    switch (aa) {
+        case 0:
+            aq.innerHTML = `
+                <div class="center" id="dong">
+                    <button onclick="a(${anser})">${anser}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                </div>`
+            break
+
+        case 1:
+            aq.innerHTML = `
+                <div class="center" id="dong">
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${anser})">${anser}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                </div>`
+            break
+        case 2:
+            aq.innerHTML = `
+                <div class="center" id="dong">
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${anser})">${anser}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                </div>`
+            break
+        case 3:
+            aq.innerHTML = `
+                <div class="center" id="dong">
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${qot[getrandom(0, win.length)]})">${qot[getrandom(0, win.length)]}</button>
+                    <button onclick="a(${anser})">${anser}</button>
+                </div>`
+            break
+    }
 }
