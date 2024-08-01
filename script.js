@@ -12,7 +12,6 @@ function a(anser) {
         thsd = win[getrandom(0, win.length)]
         qq.innerHTML = thsd
         render(qot[win.indexOf(thsd)])
-        alert("yep!")
     }
     else {
         alert("Wrong!" + qot[win.indexOf(thsd)])
