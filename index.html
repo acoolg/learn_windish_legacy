@@ -6,87 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        /*
-* Noto Sans TC (Chinese_traditional) http://www.google.com/fonts/earlyaccess
-*/
-        @font-face {
-            font-family: 'Noto Sans TC';
-            font-style: normal;
-            font-weight: 100;
-            src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Thin.woff2) format('woff2'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Thin.woff) format('woff'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Thin.otf) format('opentype');
-            font-display: fallback;
+        .center {
+            left: 50%;
+            height: 90px;
+            margin: auto;
+            width: fit-content;
+            padding: 10px;
         }
 
-        @font-face {
-            font-family: 'Noto Sans TC';
-            font-style: normal;
-            font-weight: 300;
-            src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Light.woff2) format('woff2'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Light.woff) format('woff'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Light.otf) format('opentype');
-            font-display: fallback;
-        }
-
-        @font-face {
-            font-family: 'Noto Sans TC';
-            font-style: normal;
-            font-weight: 400;
-            src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff2) format('woff2'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.woff) format('woff'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Regular.otf) format('opentype');
-            font-display: fallback;
-        }
-
-        @font-face {
-            font-family: 'Noto Sans TC';
-            font-style: normal;
-            font-weight: 500;
-            src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Medium.woff2) format('woff2'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Medium.woff) format('woff'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Medium.otf) format('opentype');
-            font-display: fallback;
-        }
-
-        @font-face {
-            font-family: 'Noto Sans TC';
-            font-style: normal;
-            font-weight: 700;
-            src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff2) format('woff2'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.woff) format('woff'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Bold.otf) format('opentype');
-            font-display: fallback;
-        }
-
-        @font-face {
-            font-family: 'Noto Sans TC';
-            font-style: normal;
-            font-weight: 900;
-            src: url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Black.woff2) format('woff2'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Black.woff) format('woff'),
-                url(//fonts.gstatic.com/ea/notosanstc/v1/NotoSansTC-Black.otf) format('opentype');
-            font-display: fallback;
-        }
-
-        #text {
-            font-family: Noto Sans TC;
-            width: 300px;
-            height: 30px;
-            font-size: 20px;
-            display: flex;
+        .down{
+            margin-top: 80px;
         }
     </style>
 </head>
 
 <body>
-    <input type="text" id="text">
-    <button onclick="submit()">翻譯</button>
-    <button onclick="svubmit()">反向翻譯</button>
+    <div class="center">
+        <input type="text" id="text" class="down">
+    </div>
+    <div class="center">
+        <button onclick="submit()">翻譯</button>
+        <button onclick="svubmit()">反向翻譯</button>
+        <a href="duolingo.html">duolingo</a>
+    </div>
+    
     <script>
         var text = document.getElementById("text");
-        var got = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a ", "A ", "e ", "E ", "i ", "I ", "ee ", "EE ", "o ", "g", "t", "s"]
-        var win = ["k", "K", "σ", "उ", "δ", "D", "t", "τ", "r", "Γ", "ω", "W", "ς", "C", "ρ", "P", "μ", "U", "α", "A", "ε", "E", "η", "Π", "=", "Ξ", "ψ", "κ", "π", "ν"]
+        var got = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a ", "A ", "e ", "E ", "i ", "I ", "ee ", "EE ", "o ", "g", "t", "s",""]
+        var win = ["k", "K", "σ", "उ", "δ", "D", "t", "τ", "r", "Γ", "ω", "W", "ς", "C", "ρ", "P", "μ", "U", "α", "A", "ε", "E", "η", "Π", "=", "Ξ", "ψ", "κ", "π", "ν","-"]
         var qot = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a", "A", "e", "E", "i", "I", "ee", "EE", "o", "g", "t", "s"]
 
         function translate(inputText) {
