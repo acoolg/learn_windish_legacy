@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習風語</title>
+</head>
+
+<body>
+    <h1 id="well">歡迎回來</h1>
+    <p>三秒後跳轉</p>
+    <script>
+        var w = document.getElementById("well");
+        window.onload = function () {
+            var user = getCookie("user");
+            if(user != null) {
+                w.innerHTML = `歡迎回來 ${user}`;
+                setTimeout(function () {
+                    location.href = 'home.html';
+                }, 3000); // 3秒後跳轉
+            } else {
+                w.innerHTML = "請先登入";
+                setTimeout(function () {
+                    location.href = 'login.html';
+                }, 3000); // 3秒後跳��
+            }
+            
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+
+</html>
