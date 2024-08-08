@@ -45,7 +45,7 @@ function writeUserData(userId, name, password) {
         streak: 0,
         weak: {
             type: "",
-            question: [],
+            question: "",
             word: "",
             letter: ""
         }
