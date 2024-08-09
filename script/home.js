@@ -1,3 +1,8 @@
+const win = ["k", "K", "σ", "उ", "δ", "D", "τ", "π", "r", "Γ", "ω", "W", "ς", "C", "ρ", "P", "μ", "U", "α", "A", "ε", "E", "η", "Π", "=", "Ξ", "ψ", "κ", "ν"];
+const qot = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a", "A", "e", "E", "i", "I", "ee", "EE", "o", "g", "s"];
+var q = undefined
+ var userData = JSON.parse(getCookie("userData"))
+
 //當載入時
 window.onload = function() {
     render()
@@ -5,10 +10,7 @@ window.onload = function() {
 
 
 //home頁的練習
-const win = ["k", "K", "σ", "उ", "δ", "D", "τ", "π", "r", "Γ", "ω", "W", "ς", "C", "ρ", "P", "μ", "U", "α", "A", "ε", "E", "η", "Π", "=", "Ξ", "ψ", "κ", "ν"];
-const qot = ["k", "K", "s", "S", "d", "D", "t", "T", "r", "R", "m", "M", "l", "L", "p", "P", "n", "N", "a", "A", "e", "E", "i", "I", "ee", "EE", "o", "g", "s"];
-var q = undefined
-var userData = JSON.parse(getCookie("userData"))
+
 
 function getrandom(min, max) {
     min = Math.ceil(min);
@@ -18,7 +20,7 @@ function getrandom(min, max) {
 
 function render() {
     if(userData == null || userData.length == 0) {
-        //location.href = "../sheet/wellcome.html"
+        location.href = "../sheet/wellcome.html"
     }
     var wina = document.getElementById("section-q")
     if (userData.weak.letter != "") {
