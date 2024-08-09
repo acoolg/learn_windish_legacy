@@ -98,6 +98,7 @@ async function main() {
 
 async function set() {
     try {
+        nowq = 0;
         que = await main(); // 等待 main 函数完成
         thatque = shuffle(que); // 洗牌
 
@@ -126,4 +127,8 @@ async function itis() {
     console.log('Answer clicked');
     nowq++;
     await ask(nowq);
+    console.log(nowq);
+    if(nowq == 10){
+        set()
+    }
 }
