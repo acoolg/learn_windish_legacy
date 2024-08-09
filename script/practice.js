@@ -72,7 +72,7 @@ function render(question) {
     questi.innerHTML += `<h1>${question.question}</h1>`;
     for (let i = 0; i < bse.length; i++) {
         if (bse[i] === question.answer) {
-            questi.innerHTML += `<button onclick="itis()" style="background-color:#fff">${"anser"}</button>`;
+            questi.innerHTML += `<button onclick="itis()">${bse[i]}</button>`;
         } else {
             questi.innerHTML += `<button>${bse[i]}</button>`;
         }
