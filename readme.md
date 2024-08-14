@@ -1,10 +1,12 @@
-# 練習風語(中文)
+<img width="100%" src="img/新增專案 (42).png">
 
-## 簡介
-這是一個翻譯和學習風語了網站，也是我第一次實作關於firebase的網站  
+---
+
+
+<h3 align="center">這是一個翻譯和學習風語了網站，也是我第一次實作關於firebase的網站</h3>  
 
 ## 運行環境需求
-不用，都是用原版的
+完全以原版html/css/js編寫
 
 ## 功能
 - 風語翻譯讀音
@@ -32,17 +34,17 @@
   
   
   
+<img width="100%" src="img/learn.png">
 
-# Windish Practice (English)
+---
+<h3 align="center">This is a website for translating and learning Windish, and it's also my first project implementing Firebase.</h3>  
 
-## Introduction
-This is a website for translating and learning Windish, and it's also my first project implementing Firebase.
 
 ## Environment Requirements
-None, everything is done using the vanilla  version.
+None, everything is done using the vanilla HTML/CSS/JS.
 
 ## Features
-- Windish translation and pronunciation
+- Windish translation to pronunciation
 - Basic vocabulary
 - Daily article
 - Customized practice

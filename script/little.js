@@ -3,7 +3,7 @@ import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase
 import { getDatabase, ref, get, child, set } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js';
 
 let userData = undefined;
-
+var chooseAllId;
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -89,12 +89,21 @@ export function shuffle(array) {
     return array;
 }
 
-export function getrandom(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-}
+export function getRandom(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+};
 
 export function jumpTo(url) {
     location.href = url
 }
+
+export async function getQuestionBy() {
+    fetch("../data/choose.json")
+    .then(async (data) => {
+        var vari = await data.json()
+        vari = vari.map(item => item.id)
+        console.log(vari)
+        return vari
+    })
+}
+

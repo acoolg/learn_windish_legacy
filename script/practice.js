@@ -1,3 +1,5 @@
+import { getRandom, jumpTo, userData, getCookie, writeNewData } from "../script/little.js"
+
 var nowq = 0;
 var que = undefined;
 var thatque = undefined;
@@ -72,11 +74,12 @@ function render(question) {
     questi.innerHTML += `<h1>${question.question}</h1>`;
     for (let i = 0; i < bse.length; i++) {
         if (bse[i] === question.answer) {
-            questi.innerHTML += `<button onclick="itis()">${bse[i]}</button>`;
+            questi.innerHTML += `<button id="assa">${bse[i]}</button>`;
         } else {
             questi.innerHTML += `<button>${bse[i]}</button>`;
         }
     }
+    document.getElementById("assa").addEventListener("click", itis);
 }
 
 async function renderQuestionById(questionId) {
@@ -128,7 +131,31 @@ async function itis() {
     nowq++;
     await ask(nowq);
     console.log(nowq);
-    if(nowq == 10){
+    if(nowq == thatque.length + 1){
         set()
     }
 }
+
+let lastCompletionDate = new Date(userData.last_login) // Example last completion date
+let streak = 5; // Example current streak
+
+function updateStreak(currentDate) {
+    // Calculate the difference in days between the current date and the last completion date
+    const diffTime = Math.abs(currentDate - lastCompletionDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+        // If the last completion date was yesterday, increment the streak
+        streak += 1;
+    } else if (diffDays > 1) {
+        // If the last completion date was more than a day ago, reset the streak
+        streak = 1;
+    }
+    // Update the last completion date to the current date
+    lastCompletionDate = currentDate;
+}
+
+// Example usage
+let today = new Date("2024-08-10");
+updateStreak(today);
+console.log("Current Streak: " + streak); // Output: Current Streak: 6

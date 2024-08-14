@@ -225,19 +225,24 @@ body{
 
 
 .quiz-choose{
-    border: 5px solid #009e25;
+    border: 5px solid var(--clr-quiz-block-border);
     border-radius: 20px;
     max-width: 95%;
-    background-color: #35f700;
+    background-color: var(--clr-quiz-block-background);
     min-height:100px;
     padding: 20px;
     margin: 20px 30px;
-    justify-content: center;
+    .quiz-many-button-flex{
+        display:flex;
+        width: 100%;
+        justify-content: space-between;
+    }
     button{
-        width: 100px;
-        margin: 0px 5px;
+        justify-content: space-between;
+        width: 50%;
+        margin:10px;
         height: 50px;
-        background-color: #dfff6c;
+        background-color: #87ffc9;
         transition:all ease 0.2s ;
         box-shadow: 0px 0px 0px rgba(0, 245, 229, 0.526);
         border-radius: 5px;
@@ -252,17 +257,17 @@ body{
     h1{
         border-radius: 10px;
         margin-bottom: 10px;
-        border: 3px solid #009e25;
-        background-color: #96ff79;
+        border: 3px solid var(--clr-quiz-QText-border);;
+        background-color: var(--clr-quiz-QText-bg);
         transition:all ease 0.2s ;
     }
 }
 
 .quiz-sent{
-    border: 5px solid #009e25;
+    border: 5px solid var(--clr-quiz-block-border);
     border-radius: 20px;
     max-width: 95%;
-    background-color: #35f700;
+    background-color: var(--clr-quiz-block-background);
     min-height:100px;
     padding: 20px;
     margin: 20px 30px;
@@ -271,29 +276,32 @@ body{
         width: 100%;
         border-radius: 10px;
         margin-bottom: 10px;
-        border: 3px solid #009e25;
-        background-color: #96ff79;
+        border: 3px solid var(--clr-quiz-QText-border);
+        background-color: var(--clr-quiz-QText-bg);
         transition:all ease 0.2s ;
     }
     input{
         width: 100%;
         margin: 10px 0px;
         height: 30px;
+        border-radius: 10px;
     }
 }
 
-
-@media screen and (max-width: 560px) {
-    .quiz-choose{
-        max-width: 95%;
-        min-height:100px;
-        button{
-            width: 55px;
-            margin: 0px 5px;
-            height: 50px;
-        }
-    }
+#bar{
+    border-radius: 10px;
+    height: 20px;
+    width: 00%;
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: repeating-linear-gradient( -45deg, #00ff6e, #00ff6e 5px, #85fe4d 5px, #85fe4d 25px );
+    transition:all ease 0.2s;
 }
-
-
-
+#progress{
+    border-radius: 10px;
+    height: 20px;
+    width: 95%;
+    background-color: #fff;
+    margin: auto;
+    margin-top: 10px;
+}

@@ -41,8 +41,11 @@ function writeUserData(userId, name, password) {
         xp: 0,
         level: 1,
         rank: "new",
-        last_login: JSON.stringify(new Date()),
-        streak: 0,
+        streak: {
+            days: 0,
+            last_login: new Date(),
+            freeze: 0,
+        },
         weak: {
             type: "",
             question: "",
@@ -51,6 +54,7 @@ function writeUserData(userId, name, password) {
         }
     })
     .then(() => {
+        alert("成功")
         console.log('Data saved successfully!');
     })
     .catch((error) => {
