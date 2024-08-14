@@ -287,21 +287,3 @@ body{
         border-radius: 10px;
     }
 }
-
-#bar{
-    border-radius: 10px;
-    height: 20px;
-    width: 00%;
-    background-color: #e5e5f7;
-    opacity: 0.8;
-    background: repeating-linear-gradient( -45deg, #00ff6e, #00ff6e 5px, #85fe4d 5px, #85fe4d 25px );
-    transition:all ease 0.2s;
-}
-#progress{
-    border-radius: 10px;
-    height: 20px;
-    width: 95%;
-    background-color: #fff;
-    margin: auto;
-    margin-top: 10px;
-}

@@ -1,7 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js';
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js';
 import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js';
-import { getRandom, jumpTo, shuffle, userData, getCookie, writeNewData, userData } from "../script/little.js"
+import { getRandom, jumpTo, shuffle, getCookie, writeNewData, userData } from "../script/little.js"
 
 var userDatat = userData;  // 儲存用戶資料
 var render_zone = document.getElementById("ques-zone");  // 渲染題目的區域
@@ -11,9 +11,55 @@ var countiTotal = 0;  // 記錄總題目數
 var wrongBook = [];  // 錯誤題目集合
 var review = false;  // 記錄是否進入複習模式
 
+const animate = {
+    name: "slidein",
+    keyframes: [
+        { transform: "translateY(100px)" },
+        { transform: "translateY(0px)" }
+    ],
+    set: {
+        duration: 200,
+        fill: "forwards",
+        easing: "ease-in" // 使用正確的屬性名稱
+    }
+}
+
+
 // 渲染錯誤訊息的函式（目前尚未實作）
-function renderWrongMsg(asset, worngData) {
-    // 尚未實作
+function renderWrongMsg(asset, answer) {
+    var render_zone = document.getElementById("fak"); 
+    render_zone.innerHTML = ``
+    switch (asset) {
+        case "wrong":
+            render_zone.style.backgroundColor = "#ffe600"
+            render_zone.innerHTML = `
+            <i class="fa-sharp fa-solid fa-circle-xmark fa-5x" style="color: #ff6f00;"></i>
+            <div class="material-symbols" >
+                <h1>
+                    錯誤
+                </h1>
+                <p>
+                    正確答案是<span>${answer}</span>
+                </p>
+                <button onclick="nextQuestion()">下一題</button>
+            </div>
+            `
+            break;
+        case "right":
+            render_zone.innerHTML = `
+            <i class="fa-sharp fa-solid fa-circle-check fa-5x" style="color: #17c150;"></i>
+            <div class="material-symbols">
+                <h1>
+                    正確
+                </h1>
+                <p>
+                    你竟然答對了
+                </p>
+            </div>
+            `
+            break;
+    }
+    render_zone.animate(animate.keyframes, animate.set)
 }
 
 // 用於更新進度條的函式，輸入百分比後會調整進度條的寬度
@@ -59,7 +105,7 @@ async function renderNewWithAsset(element, asset, inputObject, id) {
             </div>`;
             break;
     }
-    setlis(id);  // 設置按鈕事件監聽器
+    setlis(id, ans);  // 設置按鈕事件監聽器
 }
 
 var every = new Array();  // 所有題目的ID
@@ -77,6 +123,7 @@ async function getQuestionByt() {
 
 // 當頁面載入時，初始化題目和進度
 window.onload = async function() {
+    // renderWrongMsg("wrong", "a")
     await getQuestionByt();
     counter = getRandom(10,20);  // 隨機決定題目數量
     countiTotal = counter;  // 記錄總題目數
@@ -94,7 +141,7 @@ function calculatePercentage(total, current) {
 }
 
 // 設置按鈕事件監聽器
-function setlis(ida) {
+function setlis(ida, ans) {
     document.querySelectorAll("#ans").forEach(back => {
         back.addEventListener("click", async (e) => {
             if (!review) {
@@ -173,4 +220,11 @@ async function getdata(dataPath) {
     } catch (error) {
         console.error('Error fetching data:', error);
     }
+}
+
+async function nextQuestion() {
+    console.log("ssssssss")
+    var id = await wrongBook[nowcurrent - countiTotal];
+    var gfhq = await getQuestionById(id);
+    renderNewWithAsset(render_zone, "choose", gfhq, id);
 }
