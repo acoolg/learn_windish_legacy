@@ -3,13 +3,31 @@ import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase
 import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js';
 import { getRandom, jumpTo, shuffle, getCookie, writeNewData, userData } from "../script/little.js"
 
-var userDatat = userData;  // 儲存用戶資料
-var render_zone = document.getElementById("ques-zone");  // 渲染題目的區域
-var counter;  // 記錄本次考試的題目總數
-var nowcurrent = 0;  // 記錄已完成題目的數量
-var countiTotal = 0;  // 記錄總題目數
-var wrongBook = [];  // 錯誤題目集合
-var review = false;  // 記錄是否進入複習模式
+// 全域變數
+var canUse = true;
+var nowId = "";
+var isRight = false;
+var userDatat = userData;
+var render_zone = document.getElementById("ques-zone");
+var counter;
+var nowcurrent = 0;
+var countiTotal = 0;
+var wrongBook = [];
+var review = false;
+
+function soup() {
+    //log every variable
+    console.log(userData)
+    console.log(canUse)
+    console.log(nowId)
+    console.log(isRight)
+    console.log(render_zone)
+    console.log(counter)
+    console.log(nowcurrent)
+    console.log(countiTotal)
+    console.log(wrongBook)
+    console.log(review)
+}
 
 const animate = {
     name: "slidein",
@@ -20,80 +38,114 @@ const animate = {
     set: {
         duration: 200,
         fill: "forwards",
-        easing: "ease-in" // 使用正確的屬性名稱
+        easing: "ease-in"
     }
-}
+};
 
+const animate_S = {
+    name: "slidein",
+    keyframes: [
+        { transform: "translateY(0px)" },
+        { transform: "translateY(100px)" }
+    ],
+    set: {
+        duration: 0,
+        fill: "forwards",
+        easing: "ease-in"
+    }
+};
 
-// 渲染錯誤訊息的函式（目前尚未實作）
+// 渲染錯誤訊息的函式
 function renderWrongMsg(asset, answer) {
     var render_zone = document.getElementById("fak"); 
-    render_zone.innerHTML = ``
+    render_zone.innerHTML = "";
     switch (asset) {
         case "wrong":
-            render_zone.style.backgroundColor = "#ffe600"
+            render_zone.style.backgroundColor = "#ffe600";
             render_zone.innerHTML = `
             <i class="fa-sharp fa-solid fa-circle-xmark fa-5x" style="color: #ff6f00;"></i>
-            <div class="material-symbols" >
-                <h1>
-                    錯誤
-                </h1>
-                <p>
-                    正確答案是<span>${answer}</span>
-                </p>
-                <button onclick="nextQuestion()">下一題</button>
+            <div class="material-symbols">
+                <h1>錯誤</h1>
+                <p>正確答案是<span>${answer}</span></p>
             </div>
-            `
+            <button id="next">下一題</button>
+            `;
             break;
         case "right":
+            render_zone.style.backgroundColor = "#4fff6f";
             render_zone.innerHTML = `
             <i class="fa-sharp fa-solid fa-circle-check fa-5x" style="color: #17c150;"></i>
             <div class="material-symbols">
-                <h1>
-                    正確
-                </h1>
-                <p>
-                    你竟然答對了
-                </p>
+                <h1>正確</h1>
+                <p>你竟然答對了</p>
             </div>
-            `
+            <button id="next">下一題</button>
+            `;
             break;
     }
-    render_zone.animate(animate.keyframes, animate.set)
+    render_zone.animate(animate.keyframes, animate.set);
+    buttonClick(render_zone);
 }
 
-// 用於更新進度條的函式，輸入百分比後會調整進度條的寬度
+// 用於按鈕點擊後的邏輯處理
+async function buttonClick(render_zon) {
+    canUse = false;
+    nowcurrent++;
+    if (calculatePercentage(countiTotal, nowcurrent) == 100) {
+        review = true;
+    }
+    if (calculatePercentage(counter, nowcurrent) == 100) {
+        
+    }
+    document.getElementById("next").addEventListener("click", async (event) => {
+        canUse = true;
+        progress(calculatePercentage(counter, nowcurrent));
+        render_zon.animate(animate_S.keyframes, animate_S.set);
+        var render_zone = document.getElementById("ques-zone");
+        document.getElementById("fak").style.transform = "translateY(100px)";
+        var id;
+        if (review) {
+            id = wrongBook[nowcurrent - countiTotal];
+        } else {
+            id = every[nowcurrent];
+            if (!isRight) {
+                wrongBook.push(nowId);
+                counter++;
+            }
+            console.log(nowcurrent)
+        }
+        var gfhq = await getQuestionById(id);
+        renderNewWithAsset(render_zone, "choose", gfhq, id);
+        progress(calculatePercentage(counter, nowcurrent));
+        console.log(calculatePercentage(countiTotal, nowcurrent))
+    }, { once: true }); // 確保事件監聽器只執行一次
+}
+
+// 更新進度條的函式
 function progress(percent) {
-    if(percent > 100) {
-        percent = 100;  // 防止百分比超過100
+    if (percent > 100) {
+        percent = 100;
     }
     var bar = document.getElementById('bar');
-    bar.style.width = percent + '%';  // 調整進度條的寬度
+    bar.style.width = percent + '%';
 }
 
-// 根據指定的資產類型（例如「choose」或「sentence」）渲染新內容
+// 渲染新內容的函式
 async function renderNewWithAsset(element, asset, inputObject, id) {
+    nowId = id;
     switch (asset) {
         case "choose":
-            var ans = inputObject.answer;  // 正確答案
-            var buttons = [ans, inputObject.a, inputObject.b, inputObject.c];  // 所有選項
-            var afterShuffle = shuffle(buttons);  // 將選項打亂
-            var choosing = new Array();
-            for (var i = 0; i < 4; i++) {
-                if (afterShuffle[i] == ans) {
-                    choosing.push(`<button id="ans" value="true">${afterShuffle[i]}</button>`);  // 正確答案的按鈕
-                } else {
-                    choosing.push(`<button id="ans" value="false">${afterShuffle[i]}</button>`);  // 錯誤答案的按鈕
-                }
-            }
+            var ans = inputObject.answer;
+            var buttons = [ans, inputObject.a, inputObject.b, inputObject.c];
+            var afterShuffle = shuffle(buttons);
+            var choosing = afterShuffle.map(option => `
+                <button id="ans" value="${option === ans}">${option === ans}</button>
+            `);
             element.innerHTML = `
             <div class="quiz-choose">
                 <h1>${inputObject.question}</h1>
                 <div class="quiz-many-button-flex">
-                    ${choosing[0]}
-                    ${choosing[1]}
-                    ${choosing[2]}
-                    ${choosing[3]}
+                    ${choosing.join('')}
                 </div>
             </div>`;
             break;
@@ -105,85 +157,51 @@ async function renderNewWithAsset(element, asset, inputObject, id) {
             </div>`;
             break;
     }
-    setlis(id, ans);  // 設置按鈕事件監聽器
+    setlis(id, ans);
 }
 
-var every = new Array();  // 所有題目的ID
+var every = [];
 
-// 獲取題目ID並打亂
+// 獲取並打亂題目ID
 async function getQuestionByt() {
-    await fetch("../data/choose.json")
-    .then(async (data) => {
-        var vari = await data.json();
-        every = vari.map(item => item.id);  // 提取所有題目的ID
-        every = shuffle(every);  // 打亂題目ID的順序
+    try {
+        const data = await getdata("../data/choose.json");
+        every = shuffle(data.map(item => item.id));
         console.log(every);
-    });
-}
-
-// 當頁面載入時，初始化題目和進度
-window.onload = async function() {
-    // renderWrongMsg("wrong", "a")
-    await getQuestionByt();
-    counter = getRandom(10,20);  // 隨機決定題目數量
-    countiTotal = counter;  // 記錄總題目數
-    var id = await every[0] + "";
-    var gfhq = await getQuestionById(id);
-    renderNewWithAsset(render_zone, "choose", gfhq, id);  // 渲染第一題
-}
-
-// 計算進度百分比的函式，根據總數量和當前數量來計算
-function calculatePercentage(total, current) {
-    if (total === 0) {
-        return 0; // 避免除以零的情況
+    } catch (error) {
+        console.error('Error fetching question IDs:', error);
     }
+}
+
+// 頁面載入時的初始化
+window.onload = async function() {
+    await getQuestionByt();
+    counter = getRandom(10, 20);
+    countiTotal = counter;
+    var id = every[0];
+    var gfhq = await getQuestionById(id);
+    renderNewWithAsset(render_zone, "choose", gfhq, id);
+}
+
+// 計算進度百分比的函式
+function calculatePercentage(total, current) {
+    if (total === 0) return 0;
     return (current / total) * 100;
 }
 
 // 設置按鈕事件監聽器
 function setlis(ida, ans) {
-    document.querySelectorAll("#ans").forEach(back => {
-        back.addEventListener("click", async (e) => {
-            if (!review) {
-                nowcurrent++;
-                console.log("jjj");
-                if (e.target.value == "true") {
-                    var id = await every[nowcurrent];
-                    var gfhq = await getQuestionById(id);
-                    renderNewWithAsset(render_zone, "choose", gfhq, id);
-                } else if (e.target.value == "false") {
-                    var id = await every[nowcurrent];
-                    var gfhq = await getQuestionById(id);
-                    renderNewWithAsset(render_zone, "choose", gfhq, id);
-                    console.log("u really suck at it");
-                    counter++;
-                    wrongBook.push(ida);  // 儲存錯誤題目ID
-                }
-                if(calculatePercentage(countiTotal, nowcurrent) == 100){
-                    review = true;  // 如果進度達到100%，進入複習模式
-                }
-            } else {
-                nowcurrent++;
-                console.log("jjj");
-                if (e.target.value == "true") {
-                    var id = await wrongBook[nowcurrent - countiTotal];
-                    var gfhq = await getQuestionById(id);
-                    renderNewWithAsset(render_zone, "choose", gfhq, id);
-                } else if (e.target.value == "false") {
-                    var id = await wrongBook[nowcurrent - countiTotal];
-                    var gfhq = await getQuestionById(id);
-                    renderNewWithAsset(render_zone, "choose", gfhq, id);
-                    console.log("u really suck at it");
-                    counter++;
-                    wrongBook.push(ida);  // 儲存錯誤題目ID
-                }
+    document.querySelectorAll("#ans").forEach(button => {
+        button.addEventListener("click", (e) => {
+            if (canUse) {
+                isRight = (e.target.value === "true");
+                renderWrongMsg(isRight ? "right" : "wrong", ans);
             }
-            progress(calculatePercentage(counter, nowcurrent));  // 更新進度條
         });
     });
 }
 
-// 根據題目 ID 從伺服器獲取題目資料
+// 根據題目ID獲取題目資料
 async function getQuestionById(id) {
     try {
         const data = await getdata("../data/choose.json");
@@ -204,27 +222,19 @@ async function getQuestionById(id) {
             return null;
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching question by ID:', error);
     }
 }
 
-// 從指定路徑獲取資料
+// 獲取指定路徑的數據
 async function getdata(dataPath) {
     try {
         const response = await fetch(dataPath);
         if (!response.ok) {
             throw new Error('Network response was not ok: ' + response.statusText);
         }
-        const data = await response.json();
-        return data;
+        return await response.json();
     } catch (error) {
         console.error('Error fetching data:', error);
     }
-}
-
-async function nextQuestion() {
-    console.log("ssssssss")
-    var id = await wrongBook[nowcurrent - countiTotal];
-    var gfhq = await getQuestionById(id);
-    renderNewWithAsset(render_zone, "choose", gfhq, id);
 }
