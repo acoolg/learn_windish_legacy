@@ -93,6 +93,7 @@ async function buttonClick(render_zon) {
     nowcurrent++;
     if (calculatePercentage(countiTotal, nowcurrent) == 100) {
         review = true;
+        
     }
     if (calculatePercentage(counter, nowcurrent) == 100) {
         
@@ -166,7 +167,14 @@ var every = [];
 async function getQuestionByt() {
     try {
         const data = await getdata("../data/choose.json");
-        every = shuffle(data.map(item => item.id));
+        let ids = data.map(item => item.id);
+        every = shuffle(ids); // 初始的題目 ID 陣列
+
+        // 追加多次的題目 ID
+        for (let i = 0; i < 50; i++) {
+            every = every.concat(shuffle(ids)); // 將打亂的題目 ID 陣列追加到 every 中
+        }
+
         console.log(every);
     } catch (error) {
         console.error('Error fetching question IDs:', error);
