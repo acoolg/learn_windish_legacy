@@ -4,6 +4,7 @@ import { getDatabase, ref, set, get, child } from 'https://www.gstatic.com/fireb
 import { getRandom, jumpTo, shuffle, getCookie, writeNewData, userData } from "../script/little.js"
 
 // 全域變數
+var timer = 0
 var canUse = true;
 var nowId = "";
 var isRight = false;
@@ -93,10 +94,9 @@ async function buttonClick(render_zon) {
     nowcurrent++;
     if (calculatePercentage(countiTotal, nowcurrent) == 100) {
         review = true;
-        
     }
-    if (calculatePercentage(counter, nowcurrent) == 100) {
-        
+    if (counter == nowcurrent) {
+        jumpTo(`score.html?time=${timer}&score=${calculatePercentage(countiTotal,countiTotal - wrongBook.length)}`)
     }
     document.getElementById("next").addEventListener("click", async (event) => {
         canUse = true;
@@ -140,7 +140,7 @@ async function renderNewWithAsset(element, asset, inputObject, id) {
             var buttons = [ans, inputObject.a, inputObject.b, inputObject.c];
             var afterShuffle = shuffle(buttons);
             var choosing = afterShuffle.map(option => `
-                <button id="ans" value="${option === ans}">${option === ans}</button>
+                <button id="ans" value="${option === ans}">${option}</button>
             `);
             element.innerHTML = `
             <div class="quiz-choose">
@@ -246,3 +246,7 @@ async function getdata(dataPath) {
         console.error('Error fetching data:', error);
     }
 }
+
+setInterval((e) => {
+    timer++
+},1000)
