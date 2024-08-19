@@ -30,6 +30,8 @@ function soup() {
     console.log(review)
 }
 
+
+
 const animate = {
     name: "slidein",
     keyframes: [
@@ -250,3 +252,4 @@ async function getdata(dataPath) {
 setInterval((e) => {
     timer++
 },1000)
+

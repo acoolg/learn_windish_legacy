@@ -20,7 +20,7 @@ function getrandom(min, max) {
 
 function render() {
     if(userData == null || userData.length == 0) {
-        location.href = "../sheet/wellcome.html"
+        // location.href = "../sheet/wellcome.html"
     }
     var wina = document.getElementById("section-q")
     if (userData.weak.letter != "") {
