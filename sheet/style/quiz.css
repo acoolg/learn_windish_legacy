@@ -29,21 +29,21 @@
     bottom: 0px;
     display: flex;
     transform: translateY(100px);
+}
+
+.bottem-item i{
+    margin: 10px;
+}
+.bottem-item h1{
+    margin: 0px;
+}
+.bottem-item button{
+    margin: auto 2% auto auto;
+    width: 100px;
+    height: 50px;
+    background-color: #87ffc9;
+    border-radius: 20px;
     
-    i{
-        margin: 10px;
-    }
-    h1{
-        margin: 0px;
-    }
-    button{
-        margin: auto 2% auto auto;
-        width: 100px;
-        height: 50px;
-        background-color: #87ffc9;
-        border-radius: 20px;
-        
-    }
 }
 
 @keyframes slidein {
