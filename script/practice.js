@@ -156,6 +156,6 @@ function updateStreak(currentDate) {
 }
 
 // Example usage
-let today = new Date("2024-08-10");
+let today = new Date();
 updateStreak(today);
 console.log("Current Streak: " + streak); // Output: Current Streak: 6

@@ -2,8 +2,9 @@
 
 ---
 
-
-<h3 align="center">這是一個翻譯和學習風語了網站，也是我第一次實作關於firebase的網站</h3>  
+<h3 align="center">這是一個翻譯和學習風語了網站，也是我第一次實作關於
+firebase的<a href="https://acoolg.github.io/open-source-book/">網站 </a>
+</h3>  
 
 ## 運行環境需求
 完全以原版html/css/js編寫
@@ -37,7 +38,7 @@
 <img width="100%" src="img/learn.png">
 
 ---
-<h3 align="center">This is a website for translating and learning Windish, and it's also my first project implementing Firebase.</h3>  
+<h3 align="center">This is a <a href="https://acoolg.github.io/open-source-book/">website</a> for translating and learning Windish, and it's also my first project implementing Firebase.</h3>  
 
 
 ## Environment Requirements
