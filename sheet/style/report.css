@@ -1,0 +1,53 @@
+.round {
+    margin: 100px auto;
+    display: flex;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: conic-gradient(var(--clr-score-bar) 0deg, var(--clr-score-bar-bg) 0deg);
+    transition: all 0.5s ease-in-out;
+}
+
+.round .progress {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: auto;
+    background: var(--clr-score-bar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #264d2b;
+    transition: transform 0.5s ease-in-out;
+}
+
+
+.littleThings{
+    display: flex;
+    margin-top: 20px;
+    margin: 50px;
+    justify-content: center;
+    .time{
+        margin: 20px;
+        flex-direction:column;
+        display: flex;
+        background-color: #fff;
+        height: 60px;
+        width: 80px;
+        border-radius: var(--clr-score-du);
+        h3{
+            text-align: center;
+            border-radius: var(--clr-score-du) var(--clr-score-du) 0px 0px;
+            background-color: #ebfe7e;
+            width: 80px;
+            margin:0px;
+            margin:0px auto;
+        }
+        p{
+            text-align: center;
+            margin: 0px;
+        }
+    }
+}
